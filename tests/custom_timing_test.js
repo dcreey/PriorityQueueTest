@@ -20,7 +20,7 @@ describe("Fill a custom queue with N random objects and one known object of high
             var sum = timings.reduce(function(a, b) { return a + b; });
             console.log("Avg:" + (sum / timings.length));
             expect(t).toBe(0);
-            done();
+            done(done);
         })
     })
 })

@@ -10,7 +10,7 @@ var t = 10;
 var timings = [];
 
 describe("Fill a custom queue with N random objects and one known object of higher priority.", function() {
-    it("Should pop the known node with highest priority", function() {
+    it("Should pop the known node with highest priority", function(done) {
         this.timeout(20000);
         setTimeout(20000);
         var p = new Promise(function(res,rej){
