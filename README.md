@@ -3,7 +3,7 @@ Testing different Min Priority Queue implementations in Node.js.
 
 Benchmark tests on Heap (binary heap), custom, and brute force implementations for both push and pop methods.
 
----Brute force----
+----Brute force----
 Implementation uses array.prototype methods without any sorting. 
 
 ----Custom----
