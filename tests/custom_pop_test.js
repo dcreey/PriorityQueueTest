@@ -5,13 +5,15 @@
 var expect = require("expect");
 var random = require('../services/randomService.js');
 
-var n = 10000000;
-var div = n/10;
+var N = 10000000;
+var DIV = N/10;
+var QUEUETYPE = "CustomQueue";
 
 describe("Fill a custom queue with N random objects and one known object of higher priority.", function() {
-    var p = new Promise(function(res,rej){ res(random.randomQueue(n, "CustomQueue")); })
+    var p = new Promise(function(res,rej){ res(random.randomQueue(N, QUEUETYPE)); })
 
-    it("Should pop the known node with highest priority", function() {
+    it("Should loop through N pushes then N pops", function() {
+        var n = N;
         p.then(function(queue){
             var lastPriority;
             while (n > 0) {
@@ -21,7 +23,7 @@ describe("Fill a custom queue with N random objects and one known object of high
                     fail("Priority Out of Order");
                 }
                 lastPriority = node.priority;
-                if (n%div == 0)
+                if (n%DIV == 0)
                     console.log(queue.size());
                 n--;
             }

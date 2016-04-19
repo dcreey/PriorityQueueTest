@@ -8,6 +8,8 @@ var random = {
     int:function(low, high){
         return Math.floor(Math.random() * (high - low) + low);
     },
+    //Insert 1 node with priority equal to 100.
+    //Insert n nodes with random priority less than 100.
     randomQueue:function(n, queueType){
         var queue;
         if (queueType === "BruteForceQueue") queue = new BruteForceQueue();

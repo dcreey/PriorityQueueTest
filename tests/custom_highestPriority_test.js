@@ -5,10 +5,11 @@
 var expect = require("expect");
 var random = require('../services/randomService.js');
 
-var n = 10000000;
+var N = 10000000;
+var QUEUETYPE = "CustomQueue";
 
 describe("Fill a custom queue with N random objects and one known object of higher priority.", function() {
-    var queue = random.randomQueue(n, "CustomQueue");
+    var queue = random.randomQueue(N, QUEUETYPE);
 
     it("Should pop the known node with highest priority", function() {
         var node = queue.pop();

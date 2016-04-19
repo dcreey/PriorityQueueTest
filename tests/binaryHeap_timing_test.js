@@ -6,41 +6,42 @@ var expect = require("expect");
 var random = require('../services/randomService.js');
 var timer = require('../services/timerService.js');
 
-var t = 10;
+var TIMEOUT = 130000;
+var N = 10000000;
+var T = 10;
+var QUEUETYPE = "BinaryHeapQueue";
+
 var timings = [];
 
 describe("Fill a custom queue with N random objects and one known object of higher priority.", function() {
-    it("Should pop the known node with highest priority", function(done) {
-        this.timeout(20000);
-        setTimeout(20000);
+    this.timeout(TIMEOUT);
+    it("Should loop through N pushes then N pops T times each in separate PQ instances", function(done) {
         var p = new Promise(function(res,rej){
             loop(function(){ res(); });
         })
         p.then(function(){
             var sum = timings.reduce(function(a, b) { return a + b; });
             console.log("Avg:" + (sum / timings.length));
-            expect(t).toBe(0);
+            expect(timings.length).toBe(10);
             done();
         })
     })
 })
 
 var loop = function(callback){
-    console.time("loop" + t);
+    console.time("loop" + (timings.length + 1));
     timer.start();
     loopFunction(function(){
-        console.timeEnd("loop"  + t);
+        console.timeEnd("loop"  + (timings.length + 1));
         timings.push(timer.end());
-        t--;
-        if (t > 0) loop(callback);
+        if (timings.length < T) loop(callback);
         else callback();
     });
 }
 
 var loopFunction = function(callback) {
-    var n = 100000;
-    var div = n/10;
-    var p = new Promise(function(res,rej){ res(random.randomQueue(n, "BinaryHeapQueue")); })
+    var n = N;
+    var p = new Promise(function(res,rej){ res(random.randomQueue(n, QUEUETYPE)); })
     p.then(function (queue) {
 
         var lastPriority;
